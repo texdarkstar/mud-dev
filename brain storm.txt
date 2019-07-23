@@ -1,0 +1,123 @@
+//huge open world
+        //player interactive
+            //harvesting resources
+            //building player homes
+            //leaving corpses
+                //(rotting corpses?)
+
+            //strongholds
+                //fortresses\outposts
+                //land holdings
+
+        //cities, villages and towns etc
+            //npcs
+            //"reputation" system for pcs
+
+//spellweaving
+    #meta magic knowledges?
+    
+
+//trading system
+//questing
+    //tutorial quest "en media res"
+        //character defining choices
+            //alignment?
+#classless or class based?
+
+//crafting
+    //recipes
+        #single use as opposed to reusable?
+        
+
+
+//mechanics
+    //hit points
+    //wearing armor gives armor points, which is (1 - (armor / (armor + 300))) damage mitigation
+        //armor bypass can cut armor down, which lowers damage reduction
+        //special health types take more or less damage to certain things
+            //stone golems have extra armor vs any cutting or stabbing attacks but less armor vs crush, acid, cold
+            //lycanthropes have less armor vs silvered weapons
+            //undead have less armor vs light, fire or Holy
+
+	to hit roll lower than or equal to your skill but higher than your opponent
+	skill / (skill + 300)
+
+    //moving
+        //moving between rooms on foot costs move points
+        #stamina based?
+        //move points regenerate with rest
+        //mounts give extra move points
+
+    //combat
+        //to deal damage, roll for attack vs dodge rating, if hit roll damage vs armor, taking into account any bypass or damage resistances
+        //certain types of attacks can apply certain status effects, certain effects affect certain hit locations
+        #can damage degrade worn armor? Can it be repaired out of combat in the field?
+
+
+
+            //slash status
+                //anywhere
+                    //trailing battle scars
+                //hands
+                    //lower attack ratings
+                    //the classic godwars "hand chop"
+                //feet
+                    //lower dodge ratings
+                    //lower move points
+                    //hamstrung
+                //legs
+                    //lower dodge ratings
+                    //lower move points
+                    //pegleg
+                //arms
+                    //lower attack ratings
+                //torso
+                    //bleed
+                    //lower attack ratings
+                //head
+                    //lower attack ratings
+                    //lower dodge ratings
+                    //scars can make it more challenging(?) to interact with some npcs, and an intimadation bonus on certain npcs
+
+            //crush status
+                //anywhere
+                    //broken bones
+                        //lower attack rating
+                        //lower dodge rating
+                        //lower move points
+                //hands
+                //feet
+                    //lower move points
+                //legs
+                    //lower move points
+                //arms
+                //torso
+                    //lower move points
+                //head
+                    //concussion (confusion effect)
+
+
+
+
+//stats
+    //primary
+        //strength
+            //melee
+            //carry weight
+        //constitution
+            //hit point
+            //fortitude saves vs poison
+        //dexterity
+            //reflex saves vs dragon breath
+        //intelligence
+            //spell casting effectiveness
+        //charisma
+            //force of personality
+            //physical attractiveness
+            //"rep"
+        //wisdom
+            //will saves vs mind control/suggestions
+            
+            
+//custom hit locations per creature based on body proportions
+//armor is based per location
