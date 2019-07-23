@@ -1,6 +1,6 @@
 npc brains
 polish combat
-figure out player revive mechanics
+figure out player revive mechanics --done for now
 quest system
 crafting system
 

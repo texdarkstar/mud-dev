@@ -15,7 +15,7 @@
 
 //spellweaving
     #meta magic knowledges?
-    
+
 
 //trading system
 //questing
@@ -117,7 +117,7 @@
             //"rep"
         //wisdom
             //will saves vs mind control/suggestions
-            
-            
+
+
 //custom hit locations per creature based on body proportions
 //armor is based per location
