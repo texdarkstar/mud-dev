@@ -22,6 +22,9 @@ from commands.cmdattack import CmdAttack
 from commands.cmdtarget import CmdTarget
 # from commands.cmdperform import CmdPerform
 from commands.cmdcurse import CmdCurse
+from commands.cmdcraft import CmdCraft
+
+from commands.general_override import *
 
 
 class CharacterCmdSet(default_cmds.CharacterCmdSet):
@@ -51,6 +54,9 @@ class CharacterCmdSet(default_cmds.CharacterCmdSet):
         # self.add(CmdUnwield)
         self.add(CmdCurse)
 
+        self.add(CmdCraft)
+
+        self.add(OverrideCmdGet)
 
 class AccountCmdSet(default_cmds.AccountCmdSet):
     """

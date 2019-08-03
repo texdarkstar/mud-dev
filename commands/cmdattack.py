@@ -38,12 +38,10 @@ class CmdAttack(Command):
         except KeyError:
             pass
 
-        # if weapon_id:
-            # weapon = self.caller.search("#%i" % weapon_id, use_dbref=True, quiet=True).pop()
-
         if weapon:
             weapon.attack(self.hand, self.caller, target)
 
         else:
-            self.caller.msg("You're unarmed!")
-            return
+            # self.caller.msg("You're unarmed!")
+
+            self.caller.attack(self.hand, self.caller, target)

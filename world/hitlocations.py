@@ -9,38 +9,45 @@ import random
     # 'left leg': 15,
     # 'right leg': 15,
 # }
-humanoid = {
+human = {
     'head': 5,
     'hands': 20,
     'body': 45,
     'legs': 30,
 }
-quadruped = {
+wolf = {
     'head': 5,
-    'hands': 15,
+    'paws': 15,
     'body': 40,
     'legs': 40,
 }
+orc = {
+    'head': 5,
+    'hands': 20,
+    'body': 45,
+    'legs': 30,
+}    
+
+human_table = []
+wolf_table = []
 
 
-humanoid_table = []
-quadruped_table = []
+races = {
+        "human": [human, human_table],
+        "wolf": [wolf, wolf_table],
 
-bodytypes = {
-        "humanoid": [humanoid, humanoid_table],
-        "quadruped": [quadruped, quadruped_table],
     }
 
 
 def build_tables():
-    for bodytype in bodytypes.keys():
-        for hitbox in bodytypes[bodytype][0]:
-            for i in range(bodytypes[bodytype][0][hitbox]):
-                bodytypes[bodytype][1].append(hitbox)
+    for race in races.keys():
+        for hitbox in races[race][0]:
+            for i in range(races[race][0][hitbox]):
+                races[race][1].append(hitbox)
 
 
-def roll_location(bodytype):
-    return random.choice(bodytypes[bodytype][1])
+def roll_location(race):
+    return random.choice(races[race][1])
 
 
 

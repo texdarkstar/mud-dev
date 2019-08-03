@@ -25,14 +25,24 @@ def attack_roll(weapon, hand, caller, target):
     attack_chance = 100.0 * (attack_rating / (attack_rating + 300.0))
     dodge_chance = 100.0 * (dodge_rating / (dodge_rating + 300.0))
 
-    location = roll_location(target.db.bodytype)
-
+    location = None
 
     damage_roll = roll_pool(parse_pool(weapon_damage))
-    damage_dealt = int((1.0 - (
-                target.db.armor[location] / (target.db.armor[location] + 300.0)
-            )
-        ) * damage_roll)
+    damage_dealt = 0
+
+    if not target.db.is_inanimate:
+        location = roll_location(target.db.race)
+
+        damage_dealt = int((1.0 - (
+                    target.db.armor[location] / (target.db.armor[location] + 300.0)
+                )
+            ) * damage_roll)
+
+    else:
+        damage_dealt = int((1.0 - (
+                    target.db.toughness / (target.db.toughness + 300.0)
+                )
+            ) * damage_roll)
 
     caller.msg("<COMBAT> (|g{attack_rating}|n vs |r{dodge_rating}|n) rolled |g{attack_roll}|n vs |r{dodge_roll}|n".format(**locals()))
 
@@ -43,28 +53,38 @@ def attack_roll(weapon, hand, caller, target):
             caller.msg("{target} failed to dodge out of the way!".format(**locals()))
             target.msg("You failed to dodge out of the way of {caller}'s attack!".format(**locals()))
 
-        caller.msg("You hit {target} with {weapon_name}, dealing |c{damage_dealt}|n damage to their {location}!".format(
-            **locals(),
+        if not target.db.is_inanimate:
+            caller.msg("You hit {target} with {weapon_name}, dealing |c{damage_dealt}|n damage to their {location}!".format(
+                **locals(),
+                )
             )
-        )
 
-        target.msg("{caller} hit you with {weapon_name}, dealing |r{damage_dealt}|n damage!".format(
-            **locals(),
+            target.msg("{caller} hit you with {weapon_name}, dealing |r{damage_dealt}|n damage!".format(
+                **locals(),
+                )
             )
-        )
+        elif target.db.is_inanimate:
+            caller.msg("You hit {target} with {weapon_name}, dealing |c{damage_dealt}|n damage!".format(**locals()))
 
         if damage_dealt == 0 and damage_roll > 0:
             armor = ""
-            try:
-                armor = target.db.equip_worn[location]
-            except KeyError:
-                armor = "skin"
+            if not target.db.is_inanimate:
+                try:
+                    armor = target.db.equip_worn[location]
+                except KeyError:
+                    armor = target.db.natural_armor
 
-            caller.msg("Your blow fails to penetrate {target}'s {armor}!".format(**locals()))
+                caller.msg("Your blow fails to penetrate {target}'s {armor}!".format(**locals()))
+                target.msg("{caller}'s blow failed to penetrate your {armor}!".format(**locals()))
+            else:
+                caller.msg("Your blow glances off {target}!".format(**locals()))
+
+            return
 
         target.db.hp -= damage_dealt
         if target.db.hp <= 0:
             target.at_defeat(caller)
+            caller.db.target = None
     else:
         if attack_roll > attack_chance: # flat miss
             caller.msg("You missed!")

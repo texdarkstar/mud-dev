@@ -37,6 +37,7 @@ See the `@spawn` command and `evennia.utils.spawner` for more info.
 """
 ARMOR = {
     "key": "<armor>",
+    "prototype_locks": "spawn:false()",
     "armor": 0,
     "typeclass": "typeclasses.wornobject.Armor",
     "desc": "You see nothing special.",
@@ -74,6 +75,7 @@ STEEL_PLATE = {
 
 MELEE = {
     "key": "<melee>",
+    "prototype_locks": "spawn:false() and not ",
     "typeclass": "typeclasses.wornobject.Weapon",
     "damage": "1d1",
     "mod": 0,
@@ -92,6 +94,21 @@ DAGGER = {
     "key": "dagger",
     "cooldown": 2,
     "damage": "1d4",
+}
+
+# Resources
+
+IRON = {
+    "key": "iron",
+    "typeclass": "typeclasses.resources.Iron",
+}
+STEEL = {
+    "key": "steel",
+    "typeclass": "typeclasses.resources.Steel",
+}
+LEATHER = {
+    "key": "leather",
+    "typeclass": "typeclasses.resources.Leather",
 }
 
 #from random import randint

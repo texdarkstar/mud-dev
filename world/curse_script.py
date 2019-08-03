@@ -1,12 +1,13 @@
 from typeclasses.scripts import Script
 from typeclasses.characters import Character
+from world.creatures.wolf import Wolf
 from evennia import create_object
 from evennia.server.sessionhandler import SESSIONS
 
 
 class AnimalCurse(Script):
     def at_script_creation(self):
-        self.interval = 2
+        self.interval = 60
         self.messages = {
             1: [
                 "You start feeling some fuzz on your limbs.",
@@ -17,19 +18,19 @@ class AnimalCurse(Script):
                 "{name}'s face begins to elongate."
                 ],
             3: [
-                "Your thumbs begin to fuse together, losing your ability to manipulate objects.",
-                ""
-                ],
-            4: [
                 "You begin to grow a short tail, as your nose grows into a fanged muzzle.",
                 "{name} grows a short tail, as {name}'s face grows into a fanged muzzle."
+                ],
+            4: [
+                "Your hands begin to fuse into paws, losing your ability to manipulate objects!",
+                ""
                 ],
             5: [
                 "Your hair grows into a shaggy coat of slick black fur, as your tail reaches its full length.",
                 "{name} grows a shaggy coat of slick black fur, as {name}'s tail reaches its full length."
                 ],
             6: [
-                "You suddenly can't stand straight! You slip to your fours as it is much more comfortable.",
+                "You suddenly can't stand straight! You slip to all fours as it is much more comfortable.",
                 "{name}'s yelps in pain! {name} slips to all fours."
                 ],
             }
@@ -46,28 +47,26 @@ class AnimalCurse(Script):
         if self.messages[self.stage][1]:
             self.obj.location.msg_contents(self.messages[self.stage][1].format(name=self.obj.key), exclude=self.obj)
 
+        if self.stage == 3:
+            self.obj.db.speech = "growl"
+
+        if self.stage == 4:
+            self.obj.db.has_thumbs = False
+            self.obj.db.no_thumbs_err = "You can't pick up anything with your paws!"
+
         if self.stage >= self.repeats:
-            # self.caller.msg("Grabbing character reference...")
-
             character = self.obj
-            # self.caller.msg("Reference aquired. Spawning object...")
-
             animal = create_object(
-                typeclass=Character,
+                typeclass=Wolf,
                 key="wolf",
-                locks="puppet:id(%i)" % self.obj.id,    
+                locks="puppet:id(%i)" % self.obj.account.id,    
                 location=self.obj.location)
 
-            # self.caller.msg("Object spawned. Initiating puppet...")
 
             self.obj.account.puppet_object(SESSIONS.sessions_from_account(self.obj.account).pop(), animal)
-            # obj.account.db._last_puppet = animal
+
             self.obj.db.true_form = character
 
-            self.obj.tags.remove("humanoid")
-            self.obj.tags.add("quadruped")
-            self.obj.db.bodytype = "quadruped"
-
-            # self.stop()
-        # else:
-            # delay(self.interval, self.advance_stage, obj=obj)
+            # self.obj.tags.remove("humanoid")
+            # self.obj.tags.add("quadruped")
+            # self.obj.db.bodytype = "quadruped"

@@ -28,3 +28,7 @@ lock functions from evennia.locks.lockfuncs.
 #    """
 #    print "%s tried to access %s. Access denied." % (accessing_obj, accessed_obj)
 #    return False
+def has_thumbs(accessing_obj, accessed_obj, *args, **kwargs):
+    """
+    returns False if accessing_obj has no opposable thumbs, otherwise True"""
+    return accessing_obj.db.has_thumbs or False

@@ -160,4 +160,20 @@ class Object(DefaultObject):
                                  object speaks
 
      """
-    pass
+    def at_object_creation(self):
+        self.db.is_inanimate = True
+        self.db.attack = 1
+        self.db.dodge = 1
+        
+        self.db.wounds = []
+
+        self.db.toughness = 150
+
+        self.db.hp_max = 20
+        self.db.hp = self.db.hp_max
+        self.race = "object"
+
+    def at_defeat(self, killer):
+        killer.msg("%s shatters!" % self.key)
+        self.move_to(None, quiet=True, to_none=True)
+
